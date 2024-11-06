@@ -4,29 +4,29 @@ run: autoSimulate
 
 
 simulate:link
-	./Simulator  $(FILENAME)
+	@./Simulator  $(FILENAME)
 
 assemble:link
-	./Assembler $(FILENAME)
+	@./Assembler $(FILENAME)
 
-autoSimulate:autoAssemle
-	./Simulator $(FILENAME).bin
+autoSimulate:autoAssemble
+	@./Simulator $(FILENAME).bin
 
 autoAssemble:link
-	./Simulator $(FILENAME).asm
+	@./Simulator $(FILENAME).asm
 
 link:compile
-	gcc -o Assembler Assembler.o
-	gcc -o Simulator Simulator.o
+	@gcc -o Assembler Assembler.o -w
+	@gcc -o Simulator main.o fileio.o hardware.o
 
-compile:Assembler.c main.c fileio.c hardware.c assemblerV2.c
-	gcc -c assemblerV2.c -o Assembler.o
-	gcc -c main.c fileio.c hardware.c -o Simulator.o 
-
+compile:main.c fileio.c hardware.c assemblerV2.c
+	@gcc -c assemblerV2.c -o Assembler.o -w
+	@gcc -c main.c -o main.o
+	@gcc -c fileio.c -o fileio.o
+	@gcc -c hardware.c -o hardware.o
 clean:
-	rm Assembler.o Assembler
-	rm Simulator.o Simulator
-
+	@rm Assembler.o Assembler
+	@rm main.o fileio.o hardware.o Simulator
 help:
 	@echo -e 'Hello! Welcome to Souda Assembler & Simulator!\n'
 	@echo -e 'The purpose of this software is to take an assembly code file (.asm) loaded with the instructions mentioned bellow to assemble it, generate a binary (bin) code file and pass it to the simulator\n'
