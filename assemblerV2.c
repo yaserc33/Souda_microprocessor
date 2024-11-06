@@ -3,7 +3,7 @@
 #include <string.h>
 
 
-int main(int argc, char* chrFileName[]){
+int main(int argc, char* chrFileNameInput[]){
 	char	chrBuff[10];
 	char	chrBuffOp[2];
 	char	chrBuffOperand1[2];
@@ -27,15 +27,28 @@ int main(int argc, char* chrFileName[]){
 
 	int	intOpCounter	=0;
 
-	ptrSourceFile=fopen(chrFileName[1],"r");
+	char	*chrDestinationFileName;
+	char	*chrSourceFileName;
+	char	*chrFileName;
+
+	chrFileName = strtok(chrFileNameInput[1],".");
+	chrSourceFileName=strcat(chrFileName,".asm");
+	printf("\nSource File is: %s\n",chrSourceFileName);
+
+	ptrSourceFile=fopen(chrSourceFileName,"r");
 	if(ptrSourceFile==NULL){
-		printf("ERROR OPENING THE SOURCE FILE");
+		printf("ERROR!! COULD NOT FIND THE SOURCE FILE %s\n",chrSourceFileName);
 		return 1;
 	}
 
-	ptrDestinationFile=fopen("fibonacci.bin","w");
+        chrFileName = strtok(chrFileNameInput[1],".");
+	chrDestinationFileName=strcat(chrFileName,".bin");
+	printf("\nDestination File is: %s\n",chrDestinationFileName);
+
+
+	ptrDestinationFile=fopen(chrDestinationFileName,"w");
 	if(ptrSourceFile==NULL){
-		printf("ERROR OPENING THE DESTINATION FILE");
+		printf("ERROR!! AN ISSUE OCCURED WHILE OPENING THE DESTINATION FILE\n");
 		return 1;
 	}
 
