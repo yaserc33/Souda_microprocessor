@@ -1,26 +1,31 @@
 #Target : Dependency
 FILENAME=fibonacci.asm
-run: simulate
+run: autoSimulate
 
 
-simulate:
-	echo  $(FILENAME).asm
+simulate:link
+	./Simulator  $(FILENAME)
 
-assemble:compile
-	./Assembler $(FILENAME).bin
+assemble:link
+	./Assembler $(FILENAME)
+
+autoSimulate:autoAssemle
+	./Simulator $(FILENAME).bin
+
+autoAssemble:link
+	./Simulator $(FILENAME).asm
 
 link:compile
 	gcc -o Assembler Assembler.o
-	gcc -o soudaSim soudaSim.o
-compile: Assembler.c soudahSim.c
-	gcc -c Assembler.c -o Assembler.o
-	gcc -c soudaSim.c -o soudaSim.o
+	gcc -o Simulator Simulator.o
+
+compile:Assembler.c main.c fileio.c hardware.c assemblerV2.c
+	gcc -c assemblerV2.c -o Assembler.o
+	gcc -c main.c fileio.c hardware.c -o Simulator.o 
 
 clean:
 	rm Assembler.o Assembler
-	rm soudahSim.o soudahSim
-
-
+	rm Simulator.o Simulator
 
 help:
 	@echo -e 'Hello! Welcome to Souda Assembler & Simulator!\n'
