@@ -1,6 +1,25 @@
 # Souda Microprocessor Simulator and Assembler
 
-This project provides a simulator and assembler for  a 4-bit custom processor.
+This project provides a simulator and assembler for a 4-bit custom processor. It features two primary registers, **A** and **B**, and an **Arithmetic Logic Unit (ALU)** capable of handling basic arithmetic operations. 
+
+
+For more information on the  processor architecture and specifications, refer to the document **P1 K2 Assembler.pdf**.
+
+
+
+
+### List of supported assembly instructions
+---
+        1--RA=RA+RB
+        2--RB=RA+RB
+        3--RA=RA-RB
+        4--RB=RA-RB
+        5--RO=RA
+        6--RA=  immidiate
+        7--RB=  immidiate
+        8--JC=  immidiate
+        9--J=   immediate
+
 
 
 
@@ -11,6 +30,8 @@ This project provides a simulator and assembler for  a 4-bit custom processor.
 - **hardware.c / hardware.h**: Simulates the  microprocessor's ALU, registers, and control logic.
 - **main.c**: Simulator’s main loop, allowing users to execute instructions in continuous or step-by-step mode.
 - **Makefile**: Automates the build process, offering commands for assembling, simulating, cleaning, and help.
+
+
 
 
 
@@ -40,6 +61,8 @@ Example:
 ```
 
 
+
+
 ### running mode
 ---
 
@@ -51,19 +74,28 @@ Step-by-step mode (S): Pauses after each instruction, allowing you to observe th
 
 
 
+
+
 ### Makefile Commands
 ---
-make help: Displays usage instructions.
 
-make assemble: Compiles the assembler only.
 
-make simulate: Compiles the simulator only.
+        make help
+  to display usage instructions.
 
-make all: Compiles both the assembler and simulator.
 
-make clean: Removes compiled executables and temporary files.
+        make FILENAME=(you_file_name)
+  to run the whole program by compiling it, linking it, assembling it and simulating it (FILE MUST BE IN DIRECTORY AND MUST BE WITHOUT EXTENSION).
+        
+        make assemble FILENAME=(your_file_name.asm)
+  to assemble a .asm file into a .bin file (MUST BE IN SAME DIRECTORY).
+        
+        make simulate FILENAME=(your_file_name.bin)
+  to simulate a bin file and display the output (MUST BE IN THE SAME DIRECTORY).
 
-make help: Displays usage instructions.
+
+
+
 
 
 
