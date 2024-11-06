@@ -4,10 +4,10 @@ run: assemble
 
 
 simulate:assemble
-	./soudaSim  $(FILENAME)
+	./soudaSim  $(FILENAME).asm
 
 assemble:compile
-	./Assembler $(FILENAME)
+	./Assembler $(FILENAME).bin
 
 compile: Assembler.c soudahSim.c
 	gcc -c Assembler.c -o Assembler.o
