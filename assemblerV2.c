@@ -47,7 +47,7 @@ int main(int argc, char* chrFileNameInput[]){
 		return 1;
 	}
 
-
+	printf("Converting assembly instructions into binary...\n");
 	while(fgets(chrBuff,sizeof(chrBuff),ptrSourceFile)!=NULL){
                 for(int a=0;a<sizeof(chrBuff)-1;a++){
                         if(chrBuff[a]!='\n'){
@@ -206,7 +206,7 @@ int main(int argc, char* chrFileNameInput[]){
 				}
 			}
                         fprintf(ptrDestinationFile,"%d%d%d%d%d%d%d%d\n",intJ,intC,intD1,intD0,intSreg,intLiteralDigit2,intLiteralDigit1,intLiteralDigit0);
-	}
+	}		printf("A binary file %s has been created successfully in the current directory.\n",chrDestinationFileName);
 fclose(ptrSourceFile);
 fclose(ptrDestinationFile);
 return 0;
