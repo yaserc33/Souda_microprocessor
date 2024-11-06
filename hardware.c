@@ -9,9 +9,9 @@ short regA = 0;
 short regB = 0;
 short reg0 = 0;
 short imm_value;
-short carry = 0;
-short overflow = 0;
-int  pc  = 0;    // Program counter
+short carry = 0;     // 1 if exdeding 4bit limit 
+short overflow = 0;  // for -ev result
+int  pc  = 0;        // Program counter
 
 
 
@@ -58,8 +58,9 @@ void mapper(int instruction[8]) {
    
     // Each case corresponds to one of these instructions:
     if (J == 1) {
+        // J = imm ( Jump to imm)
         pc = imm_value;
-        alu(0,0,0); 
+        alu(0,0,0);  // dummy input to make sure alu is working all the time
         if(run == 2) printf("Unconditional Jump to %d\n", imm_value);
 
     } 
@@ -68,7 +69,7 @@ void mapper(int instruction[8]) {
         // JC = imm (Conditional Jump if carry set)
             if (carry == 1){
                 pc = imm_value;
-                alu(0,0,0);   
+                alu(0,0,0); // dummy input to make sure alu is working all the time  
                 if(run == 2)  printf("Conditional Jump to %d if carry\n", imm_value);
             }else{
                 if(run == 2)  printf("No Conditional Jump \n");
@@ -148,24 +149,20 @@ short alu(short a, short b, int op) {
         
         result = a + b;
         carry = (result > 15);       // Carry set if sum exceeds 4-bit limit
-        result &= 0xF;
-        
-        
+        result &= 0xF;     // mask 4-bit
 
-        // Set overflow flag if there's a signed overflow
-        overflow = ((a & 0x8) == (b & 0x8)) && ((a & 0x8) != (result & 0x8));
     } 
     else {
         // Subtraction (a - b)
         result = a - b;
 
-        // Set carry (borrow) flag for subtraction
-        carry = (result < 0);        // Borrow if result is negative
-        result = (result + 16) & 0xF;
         
-
+        carry = (result < 0);          // Set carry (borrow) flag for subtraction
+        result = (result + 16) & 0xF;  // mask 4-bit
         // Set overflow flag if there's a signed overflow
         overflow = ((a & 0x8) != (b & 0x8)) && ((a & 0x8) != (result & 0x8));
+
+
     }
     
     return result;
