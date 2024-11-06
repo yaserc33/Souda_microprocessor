@@ -6,11 +6,8 @@
 int main(int argc, char* chrFileNameInput[]){
 	char	chrBuff[10];
 	char	chrBuffOp[2];
-	char	chrBuffOperand1[2];
-	char	chrBuffOperand2[2];
 	char	chrBuff2[20];
 	char	chrBuffForOp[20];
-	char	chrCode[1];
 
 	FILE *ptrSourceFile;
 	FILE *ptrDestinationFile;
@@ -25,15 +22,13 @@ int main(int argc, char* chrFileNameInput[]){
 	int	intLiteralDigit1=0;
 	int	intLiteralDigit0=0;
 
-	int	intOpCounter	=0;
-
 	char	*chrDestinationFileName;
 	char	*chrSourceFileName;
 	char	*chrFileName;
 
 	chrFileName = strtok(chrFileNameInput[1],".");
 	chrSourceFileName=strcat(chrFileName,".asm");
-	printf("\nSource File is: %s\n",chrSourceFileName);
+	printf("Source File is: %s\n",chrSourceFileName);
 
 	ptrSourceFile=fopen(chrSourceFileName,"r");
 	if(ptrSourceFile==NULL){
@@ -43,7 +38,7 @@ int main(int argc, char* chrFileNameInput[]){
 
         chrFileName = strtok(chrFileNameInput[1],".");
 	chrDestinationFileName=strcat(chrFileName,".bin");
-	printf("\nDestination File is: %s\n",chrDestinationFileName);
+	printf("Output File is: %s\n",chrDestinationFileName);
 
 
 	ptrDestinationFile=fopen(chrDestinationFileName,"w");
@@ -53,7 +48,6 @@ int main(int argc, char* chrFileNameInput[]){
 	}
 
 
-	//convert the whole file into uppercase
 	while(fgets(chrBuff,sizeof(chrBuff),ptrSourceFile)!=NULL){
                 for(int a=0;a<sizeof(chrBuff)-1;a++){
                         if(chrBuff[a]!='\n'){
